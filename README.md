@@ -1,8 +1,7 @@
-# Snowflake Animation (Web Canvas-based, 2Kb) - Fork (Multiple Instances)
+# Snowflake Animation (Web Canvas-based, 6Kb) - Fork (Multiple Instances)
 ### Usage
 
-**This is a Fork of the original Snowflake library which as rewritten to allow mounting multiple instance on different DOM elements.
-**
+**This is a Fork of the original Snowflake library which as rewritten to allow mounting multiple instance on different DOM elements.**
 
 Download the library or insert this snippet into `<HEAD>` or `<BODY>` tag of your html page:
 
