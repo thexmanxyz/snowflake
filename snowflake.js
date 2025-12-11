@@ -376,18 +376,3 @@ function Snowflake(config) {
     // preinitialization
     instance.preInit();
 }
-
-window.SnowflakeConfig = {
-    speed: 1.2,
-    size: 1.2,
-    quality: 2.0,
-    density: 2.0,
-    opacity: 0.5,
-    index: 9,
-    style: {
-        position: "absolute",
-    }
-};
-
-var SF1 = new Snowflake({mount: '.container1'});
-var SF2 = new Snowflake({mount: '.container2'});
