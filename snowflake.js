@@ -364,14 +364,14 @@ function Snowflake(config) {
         instance.imageBase64;
     };
 
-    // apply passed config for instance
-    instance.setConfig(config);
-
     // bind events
     instance.bindEvents();
 
     // set defaul style
     instance.setDefaultStyle();
+
+    // apply passed config for instance
+    instance.setConfig(config);
 
     // preinitialization
     instance.preInit();
