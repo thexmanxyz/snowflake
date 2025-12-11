@@ -1,5 +1,8 @@
-# Snowflake Animation (Web Canvas-based, 2Kb)
+# Snowflake Animation (Web Canvas-based, 2Kb) - Fork (Multiple Instances)
 ### Usage
+
+**This is a Fork of the original Snowflake library which as rewritten to allow mounting multiple instance on different DOM elements.
+**
 
 Download the library or insert this snippet into `<HEAD>` or `<BODY>` tag of your html page:
 
@@ -11,19 +14,53 @@ Download the library or insert this snippet into `<HEAD>` or `<BODY>` tag of you
 
 [https://nextapps-de.github.io/snowflake/demo/index.html](https://nextapps-de.github.io/snowflake/demo/index.html)
 
-### Custom Configuration
-
-Apply a config object to `window.SnowflakeConfig` __before__ loading the library:
+### Initialization
+Initialize Snowflake as follows.
 
 ```js
-window.SnowflakeConfig = {
+new Snowflake({
+    start: true,
+    id: "snowflake",
+    clazz: "snowflake",
+    fill: "#e4ecf4",
     size: 1.0,
     speed: 0.65,
     opacity: 0.2,
     density: 0.5,
     quality: 2.0,
     index: 9,
-    mount: document.body,
+    mount: 'body',
+    image: "path-to-file.png",
+    style: {
+        position: "fixed",
+        width: "100%",
+        height: "100%",
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+    }
+});
+```
+you can initialize multiple instance and bind them to different DOM elements.
+
+### Global Configuration
+
+Apply a config object to `window.SnowflakeConfig` __before__ loading the library:
+
+```js
+window.SnowflakeConfig = {
+    start: true,
+    id: "snowflake",
+    clazz: "snowflake",
+    fill: "#e4ecf4",
+    size: 1.0,
+    speed: 0.65,
+    opacity: 0.2,
+    density: 0.5,
+    quality: 2.0,
+    index: 9,
+    mount: 'body',
     image: "path-to-file.png",
     style: {
         position: "fixed",
@@ -36,6 +73,15 @@ window.SnowflakeConfig = {
     }
 };
 ```
+it will be applied to all instances and will override the constructor configuration (if any is) passed during initialization. 
+
+### Enable Autostart
+
+```js
+window.SnowflakeConfig = { 
+    stop: true
+};
+```
 
 ### Disable Autostart
 
@@ -45,20 +91,12 @@ window.SnowflakeConfig = {
 };
 ```
 
-Or
-
-```js
-window.SnowflakeConfig = { 
-    stop: true
-};
-```
-
 ## Controls
 
 ### Show/Start Snowflake
 
 ```js
-Snowflake.start();
+snowflake.start();
 ```
 
 > The library will automatically start by default when loading the library. Just when autostart was disabled you'll need to initially call `Snowflake.start()`.
@@ -66,29 +104,29 @@ Snowflake.start();
 ### Hide/Stop Snowflake
 
 ```js
-Snowflake.stop();
+snowflake.stop();
 ```
 
 ### Set Flake Speed
 
 ```js
 // twice
-Snowflake.speed(2);
+snowflake.speed(2);
 // half
-Snowflake.speed(0.5);
+snowflake.speed(0.5);
 // standard
-Snowflake.speed(1);
+snowflake.speed(1);
 ```
 
 ### Set Flake Density
 
 ```js
 // twice
-Snowflake.density(2);
+snowflake.density(2);
 // half
-Snowflake.density(0.5);
+snowflake.density(0.5);
 // standard
-Snowflake.density(1);
+snowflake.density(1);
 ```
 
 > The total amount of flakes auto-scales accordingly to the available viewport.
@@ -97,22 +135,22 @@ Snowflake.density(1);
 
 ```js
 // twice
-Snowflake.size(2);
+snowflake.size(2);
 // half
-Snowflake.size(0.5);
+snowflake.size(0.5);
 // standard
-Snowflake.size(1);
+snowflake.size(1);
 ```
 
 ### Set Flake Quality
 
 ```js
 // Best
-Snowflake.quality(2);
+snowflake.quality(2);
 // Low
-Snowflake.quality(0.5);
+snowflake.quality(0.5);
 // Standard
-Snowflake.quality(1);
+snowflake.quality(1);
 ```
 
 > Higher quality consumes more performance, lower quality will instead gain performance.
@@ -120,8 +158,7 @@ Snowflake.quality(1);
 ### Custom Mount Canvas
 
 ```js
-const element = document.querySelector("#custom-lement");
-Snowflake.mount(element);
+snowflake.mount("#custom-element");
 ```
 
 > The mount element should have one of these positions: `relative`, `absolute` or `fixed`.
@@ -129,19 +166,19 @@ Snowflake.mount(element);
 You can change the css position of the canvas element:
 
 ```js
-Snowflake.style({ position: "absolute" });
+snowflake.style({ position: "absolute" });
 ```
 
 ### Adjust Opacity:
 
 ```js
-Snowflake.opacity(0.5);
+snowflake.opacity(0.5);
 ```
 
 ### Adjust Z-Index:
 
 ```js
-Snowflake.index(1);
+snowflake.index(1);
 ```
 
 > If you have issues to place the snowflake as background behind other elements try using a negative z-index value e.g. `Snowflake.index(-1);`.
@@ -149,7 +186,7 @@ Snowflake.index(1);
 ### Adjust Position
 
 ```js
-Snowflake.style({ 
+snowflake.style({ 
     position: "absolute",
     width: "100%",
     height: "100%",
@@ -164,25 +201,55 @@ Snowflake.style({
 
 ```js
  // SVG is not supported
-Snowflake.image("path-to-file.png");
+snowflake.image("path-to-file.png");
 ```
 
 Or
 
 ```js
-Snowflake.image("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAgMAAADXB5lNAAAADFBMVEXk7PTk7PTk7PQAAAAAkx47AAAABHRSTlOQSfwAyZGfwAAAAdRJREFUeF6Fk7FOhEAQhvcNrHwCO+xteQfj5hKfQHmAa6m0sCGxv5soiSxcQWd5lJprzcWExt7KUIzJBRh3djYIWEgCu/kIP//M/qNIrr7yGw++EI4m4LBdZxPQ3N6XE9AWRTUBFBQ0BbvNCLShFSl5FfCOQCT3uwPXv+DKgWjpAa5yB+o1ULOEknCbOoCPIE7xLnGgK4Cap/uEsIgdWATATkNCs7eA94l1aojQUgGZdWr1agGkL3Lr1OpFx9rXEsXUA3VmKK4GNobpADBjUCcD6HIGUShARBBEwoMaEDAdAcwQrIQAEUEQCVKv1LKn5Yq9V3SiPsOeXa+3/KzajTokLI+P3IsobjLVpvQZ2p7YXnQb2lVqb3R9oxeB2evzVAcLVcyuv2Bf6MsbrQOj9fkDf9JaJWuJRd1WHUqS3wJREDel2lVi7Jkby8Z21LOlMz7GpqJT9U1kLRmEyC5EH778FKGGcYMSBMxGIAoRunwAVsI1OR4ApgxERIkEAxFRIuGOMvdAa+MPW2ufD/bu4yCA3/4GhnQA1EmkfD4K4PIldLNYwhDcw3JVEnJPFPdiFu2refhfGPQOvI0GKOF1PGIpzYbQTAGHfwJ4PP4ZdYRyAtiHgB9fc1w25BtOVgAAAABJRU5ErkJggg==");
+snowflake.image("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABAAgMAAADXB5lNAAAADFBMVEXk7PTk7PTk7PQAAAAAkx47AAAABHRSTlOQSfwAyZGfwAAAAdRJREFUeF6Fk7FOhEAQhvcNrHwCO+xteQfj5hKfQHmAa6m0sCGxv5soiSxcQWd5lJprzcWExt7KUIzJBRh3djYIWEgCu/kIP//M/qNIrr7yGw++EI4m4LBdZxPQ3N6XE9AWRTUBFBQ0BbvNCLShFSl5FfCOQCT3uwPXv+DKgWjpAa5yB+o1ULOEknCbOoCPIE7xLnGgK4Cap/uEsIgdWATATkNCs7eA94l1aojQUgGZdWr1agGkL3Lr1OpFx9rXEsXUA3VmKK4GNobpADBjUCcD6HIGUShARBBEwoMaEDAdAcwQrIQAEUEQCVKv1LKn5Yq9V3SiPsOeXa+3/KzajTokLI+P3IsobjLVpvQZ2p7YXnQb2lVqb3R9oxeB2evzVAcLVcyuv2Bf6MsbrQOj9fkDf9JaJWuJRd1WHUqS3wJREDel2lVi7Jkby8Z21LOlMz7GpqJT9U1kLRmEyC5EH778FKGGcYMSBMxGIAoRunwAVsI1OR4ApgxERIkEAxFRIuGOMvdAa+MPW2ufD/bu4yCA3/4GhnQA1EmkfD4K4PIldLNYwhDcw3JVEnJPFPdiFu2refhfGPQOvI0GKOF1PGIpzYbQTAGHfwJ4PP4ZdYRyAtiHgB9fc1w25BtOVgAAAABJRU5ErkJggg==");
 ```
 
 Disable flake image and just draw a basic circle:
 
 ```js
-Snowflake.image(false);
+snowflake.image(false);
+```
+
+### Custom ID
+
+```js
+ // SVG is not supported
+snowflake.id("my-canvas-identifer");
+```
+
+### Custom Class
+
+```js
+ // SVG is not supported
+snowflake.clazz("my-canvas-class");
 ```
 
 ### Custom CSS
 
 ```css
 #snowflake{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+    z-index: 99;
+}
+```
+
+or
+
+```css
+.snowflake{
     position: absolute;
     width: 100%;
     height: 100%;

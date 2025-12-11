@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<script src="../snowflake.min.js"></script>
+		<script>
+		window.SnowflakeConfig = {
+			speed: 1.2,
+			size: 1.2,
+			quality: 2.0,
+			density: 2.0,
+			opacity: 0.5,
+			index: 9,
+			style: {
+				position: "absolute",
+			}
+		};
+
+		var SF1 = new Snowflake({mount: '.container1'});
+		var SF2 = new Snowflake({mount: '.container2'});
+		</script>
+	</head>
+	<body style="background: #000;position: relative;margin: 0;font-size:0;">
+		<div class="container1" style="width: 50%;background: #607D8B;height: 100vh;display: inline-block;position: relative;"></div>
+		<div class="container2" style="width: 50%;background: #4CAF50;height: 100vh;display: inline-block;position: relative;"></div>
+	</body>
+</html>
